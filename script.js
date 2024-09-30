@@ -8,8 +8,6 @@ function generate_choice() {
 
 }
 
-generate_choice();
-
 // --------------------------------------------------------------------------------------------------
 
 function change_img() {
@@ -34,5 +32,3 @@ function change_img() {
 
     })
 }
-
-change_img()
