@@ -1,38 +1,94 @@
-function generate_choice() {
+let display_img_1 = document.getElementById("img-1");
+let display_img_2 = document.getElementById("img-2");
+let scoreboard = document.getElementById("scoreboard");
 
-    let images = ["Images/img-1.jpg", "Images/img-2.jpg", "Images/img-3.jpg", "Images/img-4.jpg", "Images/img-5.jpg", "Images/img-6.jpg", "Images/img-7.jpg", "Images/img-8.jpg", "Images/img-9.jpg", "Images/img-10.jpg", "Images/img-11.jpg", "Images/img-12.jpg", "Images/img-13.jpg", "Images/img-14.jpg", "Images/img-15.jpg", "Images/img-16.jpg", "Images/img-17.jpg", "Images/img-18.jpg", "Images/img-19.jpg", "Images/img-20.jpg"]
+//-------------------------------------------------------------------------------------------------
 
-    let random_image = Math.floor(Math.random() * images.length);
+let facemash = JSON.parse(localStorage.getItem("facemash")) || [];
 
-    return images[random_image];
+//-------------------------------------------------------------------------------------------------
 
-}
+let girls = (facemash.length > 0) ? facemash : [
+    { name: "Aishwarya Rai Bachchan", image: "Images/Aishwarya Rai Bachchan.jpg", score: 0 },
+    { name: "Madhuri Dixit Nene", image: "Images/Madhuri Dixit Nene.jpg", score: 0 },
+    { name: "Alia Bhatt", image: "Images/Alia Bhatt.jpg", score: 0 },
+    { name: "Shraddha Kapoor", image: "Images/Shraddha Kapoor.jpg", score: 0 },
+    { name: "Tamannaah Bhatia", image: "Images/Tamannaah Bhatia.jpg", score: 0 },
+    { name: "Raashii Khanna", image: "Images/Raashii Khanna.jpg", score: 0 },
+    { name: "Katrina Kaif", image: "Images/Katrina Kaif.jpg", score: 0 },
+    { name: "Kareena Kapoor Khan", image: "Images/Kareena Kapoor Khan.jpg", score: 0 },
+    { name: "Deepika Padukone", image: "Images/Deepika Padukone.jpg", score: 0 },
+    { name: "Medha Shankr", image: "Images/Medha Shankr.jpg", score: 0 },
+    { name: "Kiara Advani", image: "Images/Kiara Advani.jpg", score: 0 },
+    { name: "Disha Patani", image: "Images/Disha Patani.jpg", score: 0 },
+    { name: "Nora Fatehi", image: "Images/Nora Fatehi.jpg", score: 0 },
+    { name: "Tripti Dimri", image: "Images/Tripti Dimri.jpg", score: 0 },
+    { name: "Priyanka Chopra Jonas", image: "Images/Priyanka Chopra Jonas.jpg", score: 0 },
+    { name: "Sara Ali Khan", image: "Images/Sara Ali Khan.jpg", score: 0 },
+    { name: "Kriti Sanon", image: "Images/Kriti Sanon.jpg", score: 0 },
+    { name: "Urvashi Rautela", image: "Images/Urvashi Rautela.jpg", score: 0 },
+    { name: "Jacqueline Fernandez", image: "Images/Jacqueline Fernandez.jpg", score: 0 },
+    { name: "Kangana Ranaut", image: "Images/Kangana Ranaut.jpg", score: 0 }
+];
 
-generate_choice();
+//-------------------------------------------------------------------------------------------------
 
-// --------------------------------------------------------------------------------------------------
+let current_girl_1 = null;
+let current_girl_2 = null;
 
-function change_img() {
+//-------------------------------------------------------------------------------------------------
 
-    let display_img_1 = document.getElementById("img-1")
+function get_girl_by_img_src(src) {
+    return girls.find((girl) => girl.image == src);
+};
 
-    let display_img_2 = document.getElementById("img-2")
+//-------------------------------------------------------------------------------------------------
 
-    display_img_1.addEventListener("click", function () {
+current_girl_1 = get_girl_by_img_src(display_img_1.getAttribute("src"));
+current_girl_2 = get_girl_by_img_src(display_img_2.getAttribute("src"));
 
-        display_img_1.setAttribute("src", `${generate_choice()}`)
+//-------------------------------------------------------------------------------------------------
 
-        display_img_2.setAttribute("src", `${generate_choice()}`)
+function random_girls() {
+    let random_girl_1 = Math.floor(Math.random() * girls.length);
+    let random_girl_2;
+    do {
+        random_girl_2 = Math.floor(Math.random() * girls.length);
+    }
+    while (random_girl_1 == random_girl_2);
+    return [girls[random_girl_1], girls[random_girl_2]];
+};
 
-    })
+//-------------------------------------------------------------------------------------------------
 
-    display_img_2.addEventListener("click", function () {
+function new_girls() {
+    [current_girl_1, current_girl_2] = random_girls();
+    display_img_1.setAttribute("src", current_girl_1.image);
+    display_img_2.setAttribute("src", current_girl_2.image);
+};
 
-        display_img_1.setAttribute("src", `${generate_choice()}`)
+//-------------------------------------------------------------------------------------------------
 
-        display_img_2.setAttribute("src", `${generate_choice()}`)
+display_img_1.addEventListener("click", function () {
+    if (current_girl_1) {
+        current_girl_1.score += 1;
+    }
+    localStorage.setItem("facemash", JSON.stringify(girls));
+    new_girls();
+});
 
-    })
-}
+//-------------------------------------------------------------------------------------------------
 
-change_img();
+display_img_2.addEventListener("click", function () {
+    if (current_girl_2) {
+        current_girl_2.score += 1;
+    }
+    localStorage.setItem("facemash", JSON.stringify(girls));
+    new_girls();
+});
+
+//-------------------------------------------------------------------------------------------------
+
+scoreboard.addEventListener("click", () => {
+    location = "/Scoreboard.html";
+});

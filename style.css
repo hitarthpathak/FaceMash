@@ -5,6 +5,12 @@
     font-family: Arial;
 }
 
+body {
+    height: 100%;
+    width: 100%;
+    text-align: center;
+}
+
 .navbar {
     height: 10%;
     width: 100%;
@@ -50,4 +56,37 @@ img {
 
 p {
     font-weight: bold;
+}
+
+#scoreboard {
+    height: auto;
+    width: auto;
+    padding: 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+#scoreboard-data {
+    height: auto;
+    width: auto;
+    margin: 1rem 0;
+    padding: 1rem;
+}
+
+#table {
+    height: auto;
+    width: 50%;
+    margin: auto;
+    text-align: center;
+}
+
+#table img {
+    height: auto;
+    width: 7rem;
+}
+
+th,
+td {
+    border: 2px solid black;
+    padding: 1rem;
 }
