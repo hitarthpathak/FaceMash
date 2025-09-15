@@ -90,5 +90,6 @@ display_img_2.addEventListener("click", function () {
 //-------------------------------------------------------------------------------------------------
 
 scoreboard.addEventListener("click", () => {
-    location = "/Scoreboard.html";
+    location = "Scoreboard.html";
+
 });
